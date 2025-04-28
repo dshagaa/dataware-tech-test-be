@@ -5,13 +5,19 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-        "customizations": {
-            "vscode": {
-                "extensions": [
-                    "PKief.material-icon-theme"
-                ]
-            }
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "kreativ-software.csharpextensions",
+                "ms-dotnettools.csdevkit",
+                "ms-dotnettools.vscodeintellicode-csharp",
+                "patcx.vscode-nuget-gallery",
+                "PKief.material-icon-theme",
+                "eamodio.gitlens"
+            ]
         }
+    },
+    "forwardPorts": [5432],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -22,11 +28,11 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [5000, 5001, 5432],
 	// "portsAttributes": {
-	//		"5001": {
-	//			"protocol": "https"
-	//		}
-	// }
-
+    //		"5001": {
+    //			"protocol": "https"
+    //		}
+    // }
+            
     // Use 'postCreateCommand' to run commands after the container is created.
     // "postCreateCommand": "dotnet --info",
 
