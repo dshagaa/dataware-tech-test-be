@@ -18,6 +18,9 @@
         }
     },
     "forwardPorts": [5432],
+    "mounts": [
+        "type=bind,source=~/.ssh,target=/home/vscode/.ssh,readonly"
+    ]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
