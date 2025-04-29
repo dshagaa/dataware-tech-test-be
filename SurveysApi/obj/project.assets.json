@@ -487,11 +487,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/workspaces/tech-test/SurveysApi/SurveysApi.csproj",
+      "projectUniqueName": "/workspaces/dataware-tech-test-be/SurveysApi/SurveysApi.csproj",
       "projectName": "SurveysApi",
-      "projectPath": "/workspaces/tech-test/SurveysApi/SurveysApi.csproj",
+      "projectPath": "/workspaces/dataware-tech-test-be/SurveysApi/SurveysApi.csproj",
       "packagesPath": "/home/vscode/.nuget/packages/",
-      "outputPath": "/workspaces/tech-test/SurveysApi/obj/",
+      "outputPath": "/workspaces/dataware-tech-test-be/SurveysApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/vscode/.nuget/NuGet/NuGet.Config"
