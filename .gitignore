@@ -1,0 +1,39 @@
+# Build outputs
+bin/
+obj/
+**/bin/
+**/obj/
+
+# User-specific files
+*.user
+*.suo
+*.vsp
+
+# IDE files
+.vscode/
+*.vs/
+
+# Logs
+logs/
+*.log
+
+# Runtime-generated files
+wwwroot/
+appsettings*.json
+
+# Dependency folders
+node_modules/
+packages/
+
+# Environment-specific settings
+.env
+
+# Docker files
+docker-compose.override.yml
+
+# Database-related files
+*.mdf
+*.ldb
+
+# macOS files
+.DS_Store
