@@ -1,9 +1,13 @@
 using SurveysApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data.Common;
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<UserDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("pgDatabase") ?? throw new InvalidOperationException("Connection string 'UserDbContext' not found.")));
+var DbConnectionString = builder.Configuration.GetConnectionString("pgDatabase") ??
+    throw new InvalidOperationException("Connection string not found.");
+
+// Add contexts
+builder.Services.AddDbContext<DefaultDbContext>(options => options.UseNpgsql(DbConnectionString));
 
 // Add services to the container.
 

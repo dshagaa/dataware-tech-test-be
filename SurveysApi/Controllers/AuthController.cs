@@ -9,8 +9,8 @@ namespace SurveysApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserDbContext _context;
-        public AuthController(UserDbContext context)
+        private readonly DefaultDbContext _context;
+        public AuthController(DefaultDbContext context)
         {
             _context = context;
         }
