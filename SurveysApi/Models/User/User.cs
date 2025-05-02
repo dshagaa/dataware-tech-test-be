@@ -26,15 +26,17 @@ public class User
     public string? RecoveryToken { get; set; } = string.Empty;
     [Column("status_id", TypeName = "char(36)"), MaxLength(36), Required]
     public string StatusId { get; set; } = string.Empty;
+    [Column("role_id", TypeName = "char(36)"), MaxLength(36), Required]
+    public string RoleId { get; set; } = string.Empty;
     [Column("created_at", TypeName = "timestamp"), Required]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTimeOffset.UtcNow.DateTime;
     [Column("updated_at", TypeName = "timestamp")]
     public DateTime? UpdatedAt { get; set; }
     [Column("deleted_at", TypeName = "timestamp")]
     public DateTime? DeletedAt { get; set; }
 
     // Relationships
-    public List<Role> Roles { get; set; } = new List<Role>();
+    public Role? Role { get; set; }
     public Status? Status { get; set; }
     public List<Survey>? Surveys { get; set; }
 }

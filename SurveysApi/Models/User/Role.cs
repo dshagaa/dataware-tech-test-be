@@ -14,12 +14,12 @@ public class Role
     [Column("description", TypeName = "varchar(255)"), MinLength(3), MaxLength(255), Required]
     public string Description { get; set; } = string.Empty;
     [Column("created_at", TypeName = "timestamp"), Required]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTimeOffset.UtcNow.DateTime;
     [Column("updated_at", TypeName = "timestamp")]
     public DateTime? UpdatedAt { get; set; }
     [Column("deleted_at", TypeName = "timestamp")]
     public DateTime? DeletedAt { get; set; }
 
     // Relationships
-    public List<User> Users { get; set; } = new List<User>();
+    public List<User>? Users { get; set; }
 }
