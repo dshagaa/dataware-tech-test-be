@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SurveysApi.Migrations
 {
     /// <inheritdoc />
-    public partial class initDb : Migration
+    public partial class InitDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,6 +55,7 @@ namespace SurveysApi.Migrations
                     token = table.Column<string>(type: "text", nullable: true),
                     recovery_token = table.Column<string>(type: "text", nullable: true),
                     status_id = table.Column<string>(type: "char(36)", maxLength: 36, nullable: false),
+                    role_id = table.Column<string>(type: "char(36)", maxLength: 36, nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp", nullable: true),
                     deleted_at = table.Column<DateTime>(type: "timestamp", nullable: true)
@@ -63,33 +64,15 @@ namespace SurveysApi.Migrations
                 {
                     table.PrimaryKey("PK_users", x => x.id);
                     table.ForeignKey(
-                        name: "FK_users_statuses_status_id",
-                        column: x => x.status_id,
-                        principalTable: "statuses",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleUser",
-                columns: table => new
-                {
-                    RolesId = table.Column<string>(type: "char(36)", nullable: false),
-                    UsersId = table.Column<string>(type: "char(36)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleUser", x => new { x.RolesId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_RoleUser_roles_RolesId",
-                        column: x => x.RolesId,
+                        name: "FK_users_roles_role_id",
+                        column: x => x.role_id,
                         principalTable: "roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RoleUser_users_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "users",
+                        name: "FK_users_statuses_status_id",
+                        column: x => x.status_id,
+                        principalTable: "statuses",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -124,14 +107,14 @@ namespace SurveysApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoleUser_UsersId",
-                table: "RoleUser",
-                column: "UsersId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_surveys_user_id",
                 table: "surveys",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_role_id",
+                table: "users",
+                column: "role_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_users_status_id",
@@ -143,16 +126,13 @@ namespace SurveysApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RoleUser");
-
-            migrationBuilder.DropTable(
                 name: "surveys");
 
             migrationBuilder.DropTable(
-                name: "roles");
+                name: "users");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "roles");
 
             migrationBuilder.DropTable(
                 name: "statuses");

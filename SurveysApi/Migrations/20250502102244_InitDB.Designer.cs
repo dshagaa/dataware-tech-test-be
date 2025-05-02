@@ -12,8 +12,8 @@ using SurveysApi.Data;
 namespace SurveysApi.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
-    [Migration("20250501103812_fillRoles")]
-    partial class fillRoles
+    [Migration("20250502102244_InitDB")]
+    partial class InitDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace SurveysApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("RoleUser", b =>
-                {
-                    b.Property<string>("RolesId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("RolesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("RoleUser");
-                });
 
             modelBuilder.Entity("SurveysApi.Models.Role", b =>
                 {
@@ -217,6 +202,12 @@ namespace SurveysApi.Migrations
                         .HasColumnType("text")
                         .HasColumnName("recovery_token");
 
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("char(36)")
+                        .HasColumnName("role_id");
+
                     b.Property<string>("StatusId")
                         .IsRequired()
                         .HasMaxLength(36)
@@ -239,24 +230,11 @@ namespace SurveysApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("StatusId");
 
                     b.ToTable("users");
-                });
-
-            modelBuilder.Entity("RoleUser", b =>
-                {
-                    b.HasOne("SurveysApi.Models.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SurveysApi.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SurveysApi.Models.Survey", b =>
@@ -272,13 +250,26 @@ namespace SurveysApi.Migrations
 
             modelBuilder.Entity("SurveysApi.Models.User", b =>
                 {
+                    b.HasOne("SurveysApi.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SurveysApi.Models.Status", "Status")
                         .WithMany("Users")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Role");
+
                     b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("SurveysApi.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("SurveysApi.Models.Status", b =>
